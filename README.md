@@ -1,5 +1,14 @@
 # Blood Chain Bankai — live wallpaper
 
+**v9 (current):** `montage.py` builds a 55 s loop from the real TYBW animation:
+the red crescent moon (idle, animated in code, official Blood Chains Theme OST) →
+"The... moon?" ... "...Ban-kai." → eyes, molten coat, black blades → "Getsuga...
+tensho!!" → blackout, starburst, crescent close-up → the black moon eclipse → fade
+to black. Burned-in subtitles in the source clips are painted out automatically.
+The episode clips and OST are not in this repo; `montage.py` lists the YouTube IDs.
+
+Everything below describes the earlier code-drawn versions (v1–v8).
+
 A 12-second, seamlessly looping 1080p60 live wallpaper of Ichigo's Blood Chain
 bankai, made entirely in code (Python + OpenCV + NumPy) and played on GNOME
 with the [Hanabi](https://github.com/jeffshee/gnome-ext-hanabi) extension.
