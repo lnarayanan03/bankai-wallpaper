@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+ffmpeg
+out/
+*.mp4
+*.wav
