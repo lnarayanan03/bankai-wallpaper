@@ -7,7 +7,7 @@ audio loops with no seam, exactly like the video.
 
 Event times come from render.py itself, so whooshes land on the drawn slashes.
 
-Usage: sound.py [out.wav]
+Usage: sound.py [out.wav] [--sfx-only]
 """
 import math
 import sys
@@ -74,8 +74,12 @@ def reverb(x, secs, seed):
     return y / (np.abs(y).max() + 1e-9)
 
 
+SFX_ONLY = "--sfx-only" in sys.argv
+
+
 def main():
-    out = sys.argv[1] if len(sys.argv) > 1 else "out/v8_audio.wav"
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    out = args[0] if args else "out/v8_audio.wav"
     render.init()
     render.init_v8()
     G = render.G
@@ -146,7 +150,10 @@ def main():
     gap[(T >= render.T_BO) & (T < render.T_SB)] = 0.0
     gap = np.convolve(gap, np.ones(240) / 240, mode="same")
 
-    dry = amb * duck + (riser + scream) * gap + hits + swish * 0.6 + blast + pad + back
+    if SFX_ONLY:   # for mixing under music: no drone, fire bed or pad
+        dry = (riser * 0.5 + scream) * gap + hits + swish * 0.6 + blast + back
+    else:
+        dry = amb * duck + (riser + scream) * gap + hits + swish * 0.6 + blast + pad + back
     mix = []
     for ch in range(2):
         wet = reverb(dry, 0.9, 100 + ch)

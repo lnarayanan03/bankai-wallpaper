@@ -25,7 +25,8 @@ The cut order follows the TYBW anime scene
 | File | What it does |
 | --- | --- |
 | `render.py` | Renders the video. `render.py preview [frames...]` writes stills to `out/`; `render.py video out.mp4` renders the full loop. |
-| `sound.py` | Builds the matching sound track (seamless loop, event times read from `render.py`). |
+| `sound.py` | Builds the sound effects (seamless loop, event times read from `render.py`). `--sfx-only` drops the ambient bed for mixing under music. |
+| `music.py` | Fits a music track to the loop: finds the tempo, picks the loudest 18 bars, stretches them to 90 BPM (48 s = 4 video loops), loops the seam, and puts a downbeat on the Getsuga blast. |
 | `frames/base.png` | The source still art. Everything is built on it. Do not delete. |
 | `render_v*_backup.py` | Earlier versions of the renderer. |
 
@@ -35,9 +36,14 @@ The cut order follows the TYBW anime scene
 python3 -m venv .venv && .venv/bin/pip install numpy opencv-python-headless imageio-ffmpeg
 ln -s .venv/lib/python3.*/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-* ffmpeg
 .venv/bin/python render.py video out/v8_silent.mp4      # ~10-15 min on 8 threads
-.venv/bin/python sound.py out/v8_audio.wav
-./ffmpeg -i out/v8_silent.mp4 -i out/v8_audio.wav -c:v copy -c:a aac -b:a 192k -shortest out/v8.mp4
+.venv/bin/python sound.py out/v8_sfx.wav --sfx-only
+.venv/bin/python music.py assets/bankai_track.wav out/v8_sfx.wav out/v8_music.wav
+./ffmpeg -stream_loop 3 -i out/v8_silent.mp4 -i out/v8_music.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -t 48 out/v8.mp4
 ```
+
+The music is "Ichigo's True Bankai Theme" (cover by Dude's Cover,
+https://www.youtube.com/watch?v=zVt6DzEKpZ0). It is not included in this repo;
+download it yourself to `assets/bankai_track.wav`.
 
 ## Set as wallpaper
 
