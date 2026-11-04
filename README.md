@@ -1,6 +1,27 @@
 # Blood Chain Bankai — live wallpaper
 
-**v9 (current):** `montage.py` builds a 55 s loop from the real TYBW animation:
+**v10 (current): "Blood Moon".** An original 24 s loop drawn in code on top of the
+still art, cut to the music's bars (90 BPM). `render_v10.py` renders the picture,
+`audio_v10.py` builds the 48 s soundtrack (2 loops):
+
+| Time | Shot |
+| --- | --- |
+| 0–13.3 s | The living art: flowing reiatsu, corona, chains, embers, breathing figure, power bursts |
+| 13.3–16 s | Push-in on his face; his body turns molten, eyes flare, light streaks |
+| 16.0 s | Hard cut to black: two red eyes flash (the music drops out) |
+| 16.2–18.7 s | The eclipse is gone: a huge blazing blood moon, Ichigo a black silhouette in front. He lifts the blade and slashes |
+| 18.1–18.7 s | A black Getsuga crescent with a red rim sweeps across the moon's face, leaving a burning cut |
+| 18.67 s | Impact on the downbeat: white flash, shockwave |
+| 19–21.1 s | The eclipse slides back over the moon, ending in a diamond-ring flash |
+| 21.1–24 s | Idle again; loops seamlessly |
+
+Build: `render_v10.py video out/v10_silent.mp4`, `audio_v10.py out/v10_audio.wav`, then
+mux two copies of the video with the audio (see the commit that added v10).
+
+v9 (`montage.py`) was a cut of real anime clips; it was dropped because it copied the
+footage instead of being inspired by it.
+
+**v9:** `montage.py` builds a 55 s loop from the real TYBW animation:
 the red crescent moon (idle, animated in code, official Blood Chains Theme OST) →
 "The... moon?" ... "...Ban-kai." → eyes, molten coat, black blades → "Getsuga...
 tensho!!" → blackout, starburst, crescent close-up → the black moon eclipse → fade
